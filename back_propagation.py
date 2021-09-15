@@ -22,10 +22,13 @@ def f_out(inp):
     sum = []
     f_sum = []
     for i in range(len(w)):
-        sum.append(np.dot(inp, w[i])) # находим сумму
-        inp = np.array([f_activation(x) for x in sum[i]])
-        f_sum.append(inp) # применяем функцию активации
-    return sum#, f_sum
+        sum.append(np.dot(inp, w[i]))
+        if isinstance(sum[i], float):
+            y = f_activation(sum[i])
+        else:
+            inp = np.array([f_activation(x) for x in sum[i]])
+            f_sum.append(inp)
+    return sum, y
 
 def train(input, prediction):
     lmd = 0.01
@@ -58,7 +61,7 @@ prediction = np.array([[0], [1], [1], [0]])
 #train(train_input, train_out)
 #train(input, prediction)
 #def back_prop()
-print(f_out(input))
+print(f_out(np.array([0, 0])))
 
 
 
